@@ -1,19 +1,13 @@
-<script>
+<script lang="ts">
   export let data;
 </script>
 
 <h1 class="text-3xl font-bold mb-6">Blog</h1>
 
 {#each data.posts as post}
-  <div class="mb-6 border-b pb-4">
-    <h2 class="text-2xl font-semibold">
-      <a class="text-blue-600 hover:underline" href={`/blog/${post.slug}`}>
-        {post.title}
-      </a>
-    </h2>
-    <p class="text-gray-500 text-sm mb-1">
-      {new Date(post.date).toLocaleDateString()}
-    </p>
+  <div class="mb-4">
+    <a href={`/blog/${post.slug}`} class="text-xl font-semibold text-blue-600 hover:underline">{post.title}</a>
+    <p class="text-sm text-gray-500">{post.date}</p>
     <p>{post.excerpt}</p>
   </div>
 {/each}
