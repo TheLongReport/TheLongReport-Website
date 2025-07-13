@@ -1,7 +1,16 @@
-<script lang="ts">
-	import '../app.css';
+<style global>
+  @import '../app.css';
+</style>
 
-	let { children } = $props();
+<script lang="ts">
+    import Header from '$lib/components/Header.svelte';
+    import Footer from '$lib/components/Footer.svelte';
 </script>
 
-{@render children()}
+<Header />
+
+<main class="min-h-screen max-w-6xl mx-auto px-4 py-8">
+  <slot />
+</main>
+
+<Footer />
