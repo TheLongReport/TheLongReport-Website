@@ -1,47 +1,50 @@
-# Node modules
+# Node.js
 node_modules/
-
-# Vite cache
-.vite/
-
-# Build output
-dist/
-build/
-
-# Logs
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
-# OS junk
-.DS_Store
-Thumbs.db
-
-# Local env files
-.env
-.env.*.local
-
-# SvelteKit SSR
+# Vite / SvelteKit
 .svelte-kit/
+.build/
+dist/
+*.local
+.env
+.env.*
 
-# IDE folders
+# macOS
+.DS_Store
+
+# VS Code
 .vscode/
+
+# Logs
+logs/
+*.log
+
+# OS Junk
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDEs
 .idea/
+*.sw?
+*.sublime*
 
-# Coverage and test artifacts
-coverage/
-*.lcov
-
-# System-specific
-*.swp
-*.swo
-
-# Mac ._ files
-._*
-
-# Files generated during local dev
+# Build artifacts
 *.tsbuildinfo
 
-# Optional: GitHub Codespaces
-.devcontainer/
+# Markdown/Content Drafts (optional)
+drafts/
+*.bak.md
+
+# Output or deployment directories (adjust as needed)
+out/
+public/build/
+
+
+# Optional: Ignore local dev database or cache
+.cache/
+.db/
