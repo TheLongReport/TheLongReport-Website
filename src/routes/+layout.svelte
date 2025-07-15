@@ -2,15 +2,15 @@
   import '../app.css';
 </script>
 
-<header class="bg-red-500 shadow-md sticky top-0 z-50 h-16">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center text-white">
-    <h1 class="text-xl font-bold">
+<header class="bg-red-500 shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-white">
       The Long Report
     </h1>
-    <nav class="space-x-4 font-medium">
-      <a href="/" class="hover:underline">Home</a>
-      <a href="/michigan" class="hover:underline">Michigan</a>
-      <a href="/national" class="hover:underline">National</a>
+    <nav class="space-x-4 text-white font-medium">
+      <a href="/" class="hover:text-blue-300">Home</a>
+      <a href="/michigan" class="hover:text-blue-300">Michigan</a>
+      <a href="/national" class="hover:text-blue-300">National</a>
     </nav>
   </div>
 </header>
