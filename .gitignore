@@ -5,46 +5,38 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Vite / SvelteKit
+# SvelteKit / Vite
 .svelte-kit/
 .build/
+build/
 dist/
 *.local
 .env
 .env.*
 
-# macOS
+# macOS / Windows
 .DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# VS Code
+# IDEs / Editors
 .vscode/
+.idea/
+*.sw?
+*.sublime*
 
 # Logs
 logs/
 *.log
 
-# OS Junk
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# IDEs
-.idea/
-*.sw?
-*.sublime*
-
-# Build artifacts
+# TypeScript
 *.tsbuildinfo
 
 # Markdown/Content Drafts (optional)
 drafts/
 *.bak.md
 
-# Output or deployment directories (adjust as needed)
-out/
-public/build/
-
-
-# Optional: Ignore local dev database or cache
+# Dev cache or DB (optional)
 .cache/
 .db/
