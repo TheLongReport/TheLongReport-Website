@@ -59,6 +59,7 @@ declare module '$env/static/private' {
 	export const LANG: string;
 	export const npm_config_npm_version: string;
 	export const XPC_FLAGS: string;
+	export const npm_package_engines_node: string;
 	export const npm_config_node_gyp: string;
 	export const npm_package_version: string;
 	export const XPC_SERVICE_NAME: string;
@@ -139,6 +140,7 @@ declare module '$env/dynamic/private' {
 		LANG: string;
 		npm_config_npm_version: string;
 		XPC_FLAGS: string;
+		npm_package_engines_node: string;
 		npm_config_node_gyp: string;
 		npm_package_version: string;
 		XPC_SERVICE_NAME: string;

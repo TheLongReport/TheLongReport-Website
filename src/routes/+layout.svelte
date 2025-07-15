@@ -1,12 +1,11 @@
 <script lang="ts">
-  export let data;
   import '../app.css';
 </script>
 
 <header class="bg-white shadow-md sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
     <h1 class="text-xl font-bold text-gray-800">
-      <a href="/">The Long Report</a>
+      The Long Report
     </h1>
     <nav class="space-x-4 text-gray-700 font-medium">
       <a href="/" class="hover:text-blue-600">Home</a>
