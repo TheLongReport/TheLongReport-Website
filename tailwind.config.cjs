@@ -8,6 +8,7 @@ module.exports = {
     'text-white',
     'text-gray-800',
     'text-gray-700',
+    'text-blue-600',
     'hover:text-blue-300'
   ],
   theme: {
