@@ -1,3 +1,9 @@
 {
-	"/": []
+	"/": [],
+	"/blog": [
+		"src/routes/blog/+page.server.ts"
+	],
+	"/blog/[slug]": [
+		"src/routes/blog/[slug]/+page.server.ts"
+	]
 }
