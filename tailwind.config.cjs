@@ -29,7 +29,10 @@ module.exports = {
     'sm:px-6',
     'lg:px-8',
     'py-4',
+    'py-6',
+    'mt-12'
   ],
+
   theme: {
     extend: {}
   },
