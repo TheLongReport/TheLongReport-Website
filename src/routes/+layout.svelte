@@ -3,7 +3,7 @@
   let menuOpen = false;
 </script>
 
-<header class="bg-red-500 shadow-md sticky top-0 z-50">
+<header class="bg-red-500 shadow-md sticky inset-x-0 top-[1px] z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
     <h1 class="text-xl font-bold text-white">The Long Report</h1>
 
