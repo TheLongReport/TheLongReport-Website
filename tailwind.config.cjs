@@ -5,18 +5,21 @@ const typography = require('@tailwindcss/typography');
 module.exports = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   safelist: [
-    {
-      pattern: /text-(white|gray-\d{3}|red-\d{3}|blue-\d{3})/
-    },
-    {
-      pattern: /bg-(white|gray-\d{3}|red-\d{3}|blue-\d{3})/
-    },
-    {
-      pattern: /hover:text-(blue-\d{3}|white)/
-    },
-    {
-      pattern: /(prose|font-bold|shadow-md|sticky|top-\d+|z-\d+)/
-    }
+    'text-white',
+    'text-xl',
+    'font-bold',
+    'bg-red-500',
+    'hover:text-blue-300',
+    'sticky',
+    'top-0',
+    'z-50',
+    'shadow-md',
+    'space-x-4',
+    'text-center',
+    'text-sm',
+    'text-gray-600',
+    'bg-gray-100',
+    'border-t',
   ],
   theme: {
     extend: {}
