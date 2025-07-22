@@ -9,7 +9,9 @@ const config = {
     adapter: adapter({
       pages: 'build',
       assets: 'build',
-      fallback: 'index.html' // SPA fallback for Azure
+      fallback: 'index.html', // SPA fallback for Azure
+      precompress: false,
+      strict: true
     }),
     alias: {
       $lib: 'src/lib'
