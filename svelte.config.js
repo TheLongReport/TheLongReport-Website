@@ -10,7 +10,10 @@ const config = {
       pages: 'build',
       assets: 'build',
       fallback: 'index.html' // SPA fallback for Azure
-    })
+    }),
+    alias: {
+      $lib: 'src/lib'
+    }
   }
 };
 
