@@ -11,3 +11,12 @@ body {
   color: inherit;
   background-color: inherit;
 }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  font-family: system-ui, sans-serif;
+}
