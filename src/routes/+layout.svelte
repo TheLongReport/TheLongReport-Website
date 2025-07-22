@@ -3,7 +3,8 @@
 </script>
 
 
-<header class="bg-red-500 shadow-md sticky top-0 z-50">
+<!-- Temporarily replace header with div -->
+<div class="bg-red-500 shadow-md sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
     <h1 class="text-white antialiased">The Long Report</h1>
     <nav class="space-x-4 text-white font-medium">
@@ -12,7 +13,7 @@
       <a href="/national" class="hover:text-blue-300">National</a>
     </nav>
   </div>
-</header>
+</div>
 
 <main class="max-w-4xl mx-auto px-4 py-8">
   <slot />
