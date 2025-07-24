@@ -4,11 +4,11 @@
 
 <h1 class="text-3xl font-bold mb-6">Blog</h1>
 
-{#if data.posts}
-  <ul class="space-y-4">
+{#if data.posts?.length}
+  <ul class="space-y-6">
     {#each data.posts as post}
-      <li>
-        <a href={`/blog/${post.slug}`} class="text-xl font-semibold text-blue-600 hover:underline">
+      <li class="p-4 border rounded-md shadow-sm hover:shadow transition">
+        <a href={`/blog/${post.slug}`} class="text-2xl font-semibold text-blue-700 hover:underline">
           {post.title}
         </a>
         <p class="text-sm text-gray-500">{post.date}</p>
