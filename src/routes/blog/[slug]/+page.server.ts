@@ -3,8 +3,11 @@ import { marked } from 'marked';
 import matter from 'gray-matter';
 
 export async function load({ params }) {
-  const modules = import.meta.glob('/src/posts/*.md', { as: 'raw' });
-
+  const modules = import.meta.glob('/src/posts/*.md', {
+    query: '?raw',
+    import: 'default'
+  });
+  
   const slug = params.slug;
   const match = Object.keys(modules).find((path) => path.endsWith(`${slug}.md`));
 
