@@ -1,23 +1,28 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import { marked } from 'marked';
 import { error } from '@sveltejs/kit';
 
 export async function load({ params }) {
-  const slug = params.slug;
-  const postPath = path.resolve(`static/posts/${slug}.md`);
+  const modules = import.meta.glob('/src/lib/posts/*.md', {
+    query: '?raw',
+    import: 'default'
+  });
 
-  if (!fs.existsSync(postPath)) throw error(404, 'Post not found');
+  const match = Object.entries(modules).find(([path]) =>
+    path.endsWith(`${params.slug}.md`)
+  );
 
-  const fileContent = fs.readFileSync(postPath, 'utf-8');
-  const { data, content } = matter(fileContent);
-  const html = marked(content);
+  if (!match) throw error(404, 'Post not found');
+
+  const raw = await match[1]();
+
+  const { default: matter } = await import('gray-matter');
+  const { marked } = await import('marked');
+
+  const { data, content } = matter(raw);
 
   return {
     title: data.title,
     date: data.date,
     author: data.author || 'Unknown',
-    content: html
+    content: marked(content)
   };
 }
