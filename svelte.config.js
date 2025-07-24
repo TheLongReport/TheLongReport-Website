@@ -15,9 +15,6 @@ const config = {
 			crawl: true,                     // Auto-follow links and prerender those pages
 			entries: ['*'],                  // Include all static routes
 			handleHttpError: 'warn',        // Prevent build from crashing on 404s
-			onError: ({ status, path, referrer }) => {
-				console.warn(`⚠️ ${status} error on ${path}, linked from ${referrer}`);
-			}
 		}
 	}
 };
