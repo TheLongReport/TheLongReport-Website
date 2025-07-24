@@ -1,23 +1,22 @@
-import fs from 'fs';
-import path from 'path';
 import matter from 'gray-matter';
 
 export async function load() {
-  const postsDir = path.resolve('src/posts');
-  const files = fs.readdirSync(postsDir);
+  const modules = import.meta.glob('/src/posts/*.md', { as: 'raw' });
 
-  const posts = files.map((filename) => {
-    const slug = filename.replace('.md', '');
-    const fileContent = fs.readFileSync(`${postsDir}/${filename}`, 'utf-8');
-    const { data } = matter(fileContent);
+  const posts = [];
 
-    return {
+  for (const path in modules) {
+    const slug = path.split('/').pop().replace('.md', '');
+    const raw = await modules[path]();
+    const { data } = matter(raw);
+
+    posts.push({
       slug,
       title: data.title,
       date: data.date,
       description: data.description
-    };
-  });
+    });
+  }
 
   // sort newest first
   posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

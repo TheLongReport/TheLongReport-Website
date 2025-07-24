@@ -1,40 +1,23 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import { error } from '@sveltejs/kit';
 import { marked } from 'marked';
+import matter from 'gray-matter';
 
-/** Enable static prerendering */
-export const prerender = true;
-
-/** Tell SvelteKit all valid slugs to prerender */
-export function entries() {
-  const postsDir = path.resolve('src/posts');
-  const files = fs.readdirSync(postsDir);
-
-  return files
-    .filter((file) => file.endsWith('.md'))
-    .map((file) => {
-      const slug = file.replace(/\.md$/, '');
-      return { slug };
-    });
-}
-
-/** Load the content for the given slug */
 export async function load({ params }) {
+  const modules = import.meta.glob('/src/posts/*.md', { as: 'raw' });
+
   const slug = params.slug;
-  const filePath = path.resolve(`src/posts/${slug}.md`);
+  const match = Object.keys(modules).find((path) => path.endsWith(`${slug}.md`));
 
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`Post not found: ${slug}`);
-  }
+  if (!match) throw error(404, 'Post not found');
 
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
-  const { data, content } = matter(fileContent);
+  const raw = await modules[match]();
+  const { data, content } = matter(raw);
+  const html = marked(content);
 
   return {
     title: data.title,
     date: data.date,
     author: data.author || 'Unknown Author',
-    content: marked(content)
+    content: html
   };
 }
