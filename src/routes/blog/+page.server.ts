@@ -1,3 +1,6 @@
+import { error } from '@sveltejs/kit';
+import matter from 'gray-matter';
+
 export async function load() {
   const modules = import.meta.glob('/src/lib/posts/*.md', {
     query: '?raw',
