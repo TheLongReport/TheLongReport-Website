@@ -3,12 +3,13 @@
   let menuOpen = false;
 </script>
 
-<header class="bg-red-500 shadow-md sticky inset-x-0 top-[1px] z-50">
+<header class="bg-gray-100 shadow-md sticky inset-x-0 top-[1px] z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-    <h1 class="text-xl font-bold text-white">The Long Report</h1>
-
+    <a href="/" class="flex items-center">
+      <img src="/images/TheLongReport_WIDE.png" alt="The Long Report" class="h-8 w-auto sm:h-10" />
+    </a>
     <!-- Mobile menu button -->
-    <button class="sm:hidden text-white focus:outline-none" on:click={() => (menuOpen = !menuOpen)}>
+    <button class="sm:hidden text-black focus:outline-none" on:click={() => (menuOpen = !menuOpen)}>
       <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round"
@@ -17,7 +18,7 @@
     </button>
 
     <!-- Desktop nav -->
-    <nav class="hidden sm:flex space-x-4 text-white font-medium">
+    <nav class="hidden sm:flex space-x-4 text-black font-medium">
       <a href="/" class="hover:text-blue-300">Home</a>
       <a href="/michigan" class="hover:text-blue-300">Michigan</a>
       <a href="/national" class="hover:text-blue-300">National</a>
@@ -26,7 +27,7 @@
 
   <!-- Mobile nav -->
   {#if menuOpen}
-    <nav class="sm:hidden px-4 pb-4 space-y-2 text-white font-medium">
+    <nav class="sm:hidden px-4 pb-4 space-y-2 text-black font-medium">
       <a href="/" class="block hover:text-blue-300">Home</a>
       <a href="/michigan" class="block hover:text-blue-300">Michigan</a>
       <a href="/national" class="block hover:text-blue-300">National</a>
