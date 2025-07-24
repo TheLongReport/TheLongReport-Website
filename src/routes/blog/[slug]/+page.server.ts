@@ -1,19 +1,18 @@
 import fs from 'fs';
 import path from 'path';
-import { compile } from 'mdsvex';
+import matter from 'gray-matter';
+import { marked } from 'marked';
 
 export async function load({ params }) {
-  const { slug } = params;
-  const filepath = path.resolve('src/posts', `${slug}.md`);
-
-  if (!fs.existsSync(filepath)) {
-    return { status: 404 };
-  }
-
-  const raw = fs.readFileSync(filepath, 'utf-8');
-  const { code } = await compile(raw, { filename: `${slug}.md` });
+  const slug = params.slug;
+  const filePath = path.resolve(`src/posts/${slug}.md`);
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
+  const { data, content } = matter(fileContent);
 
   return {
-    content: code
+    title: data.title,
+    date: data.date,
+    author: data.author || 'Unknown Author',
+    content: marked(content)
   };
 }

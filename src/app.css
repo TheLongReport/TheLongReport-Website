@@ -18,3 +18,66 @@ html {
 html, body {
   font-family: system-ui, sans-serif;
 }
+
+.prose {
+  max-width: 100%;
+}
+
+/* Justify all paragraph and list content */
+.prose p,
+.prose li {
+  text-align: justify;
+}
+
+/* Optional: Tweak heading sizes and spacing for elegance */
+.prose h1 {
+  font-size: 2.25rem; /* ~36px */
+  font-weight: 800;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.prose h2 {
+  font-size: 1.75rem; /* ~28px */
+  font-weight: 700;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.prose h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+/* Center images and captions */
+.prose img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prose figcaption {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280; /* Tailwind gray-500 */
+}
+
+/* Optional: cleaner spacing for lists */
+.prose ul,
+.prose ol {
+  padding-left: 1.25rem;
+  margin-bottom: 1.25rem;
+}

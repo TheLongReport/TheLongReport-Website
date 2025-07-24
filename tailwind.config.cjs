@@ -33,7 +33,21 @@ module.exports = {
     'antialiased'
   ],
   theme: {
-    extend: {}
+    extend: {
+      typography: {
+          DEFAULT: {
+            css: {
+              p: {
+                textAlign: 'justify'
+              },
+              li: {
+                textAlign: 'justify'
+              }
+            },
+          },
+        },
+      },
+    },
   },
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
   corePlugins: {

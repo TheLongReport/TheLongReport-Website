@@ -1,9 +1,7 @@
-# src/posts/welcome.md
-
 ---
 title: "Welcome to The Long Report"
-date: "2025-07-15"
-slug: "welcome"
+date: "2025-07-22"
+description: "A new era of conservative journalism begins."
 ---
 
-Welcome to **The Long Report**, your home for conservative, Michigan-first political insight.
+This is the very first blog post on The Long Report. Stay tuned for truth, strategy, and hard-hitting analysis.
