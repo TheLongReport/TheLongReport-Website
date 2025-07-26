@@ -9,9 +9,10 @@ export default defineConfig({
 		cssCodeSplit: true
 	},
 	plugins: [
-		tailwindcss(), 
-		sveltekit(),    
+		tailwindcss(),
+		sveltekit(),
 		string({
-      		include: '**/*.md'
-    })]
+			include: '**/*.md'
+		})
+	]
 });

@@ -1,29 +1,26 @@
-// src/routes/blog/[slug]/+page.ts
-const postFiles = import.meta.glob('/src/posts/*.md');
+import { parseMarkdown } from '$lib/utils/parseMarkdown';
+
+const allPostFiles = import.meta.glob('/src/posts/*.md', { as: 'raw' });
 
 export async function load({ params }) {
 	const slug = params.slug;
-	const filePath = `/src/posts/${slug}.md`;
+	const matchPath = Object.keys(allPostFiles).find(path =>
+		path.includes(`${slug}.md`)
+	);
 
-	const importPost = postFiles[filePath];
-
-	if (!importPost) {
-		console.error(`❌ No blog post found for slug: ${slug}`);
-		throw new Error('Post not found');
+	if (!matchPath) {
+		console.error(`❌ No matching post for slug: ${slug}`);
+		return { content: '', title: 'Not Found', date: '', author: '', description: '' };
 	}
 
-	const post = await importPost();
-
-	if (!post.metadata || !post.default) {
-		console.error(`❌ Post metadata or content missing for: ${slug}`, post);
-		throw new Error('Post data malformed');
-	}
+	const raw = await allPostFiles[matchPath]();
+	const { metadata, content } = parseMarkdown(raw);
 
 	return {
-		title: post.metadata.title ?? 'Untitled',
-		date: post.metadata.date ?? '',
-		description: post.metadata.description ?? '',
-		author: post.metadata.author ?? 'Unknown Author',
-		content: post.default
+		title: metadata.title,
+		date: metadata.date,
+		author: metadata.author,
+		description: metadata.description,
+		content
 	};
 }

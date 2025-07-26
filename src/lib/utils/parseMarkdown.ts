@@ -1,15 +1,27 @@
-import matter from 'gray-matter';
-import { marked } from 'marked';
-
 export function parseMarkdown(raw: string) {
-	const { data, content } = matter(raw);
-	const html = marked(content);
+	const frontMatterRegex = /^---\n([\s\S]*?)\n---/;
+	const match = raw.match(frontMatterRegex);
 
-	return {
-		title: data.title ?? 'Untitled',
-		date: data.date ?? 'Unknown',
-		description: data.description ?? '',
-		author: data.author ?? 'Unknown Author',
-		content: html
+	let metadata = {
+		title: 'Untitled',
+		date: '',
+		description: '',
+		author: 'Unknown Author'
 	};
+
+	let content = raw;
+
+	if (match) {
+		const rawFrontMatter = match[1];
+		content = raw.replace(frontMatterRegex, '').trim();
+
+		rawFrontMatter.split('\n').forEach(line => {
+			const [key, ...rest] = line.split(':');
+			if (key && rest.length > 0) {
+				metadata[key.trim()] = rest.join(':').trim();
+			}
+		});
+	}
+
+	return { metadata, content };
 }
