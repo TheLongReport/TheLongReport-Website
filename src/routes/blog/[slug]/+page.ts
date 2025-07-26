@@ -1,16 +1,23 @@
-import { parseMarkdown } from '$lib/utils/posts';
+import { parseMarkdown } from '$lib/utils/parseMarkdown';
 import { error } from '@sveltejs/kit';
 
-export async function load({ params }) {
-	const modules = import.meta.glob('/src/posts/*.md', { query: '?raw', import: 'default' });
+const allPosts = import.meta.glob('/src/posts/*.md', { as: 'raw' });
 
+export async function load({ params }) {
 	const slug = params.slug;
-	const match = Object.keys(modules).find((path) => path.endsWith(`${slug}.md`));
+	const match = Object.entries(allPosts).find(([path]) =>
+		path.endsWith(`/${slug}.md`)
+	);
 
 	if (!match) throw error(404, 'Post not found');
 
-	const raw = await modules[match]();
-	const post = parseMarkdown(raw);
+	const raw = await match[1]();
+	const { title, date, author, content } = parseMarkdown(raw);
 
-	return post;
+	return {
+		title,
+		date,
+		author,
+		content
+	};
 }

@@ -6,9 +6,9 @@ export function parseMarkdown(raw: string) {
 	const html = marked(content);
 
 	return {
-		title: data.title,
-		date: data.date,
-		description: data.description,
+		title: data.title ?? 'Untitled',
+		date: data.date ?? 'Unknown',
+		description: data.description ?? '',
 		author: data.author ?? 'Unknown Author',
 		content: html
 	};

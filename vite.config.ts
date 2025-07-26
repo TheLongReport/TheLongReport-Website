@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
+import string from 'vite-plugin-string';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
@@ -7,5 +8,10 @@ export default defineConfig({
 		minify: false,
 		cssCodeSplit: true
 	},
-	plugins: [tailwindcss(), sveltekit()]
+	plugins: [
+		tailwindcss(), 
+		sveltekit(),    
+		string({
+      		include: '**/*.md'
+    })]
 });
