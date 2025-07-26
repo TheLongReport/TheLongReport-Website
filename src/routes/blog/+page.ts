@@ -1,27 +1,30 @@
 import { parseMarkdown } from '$lib/parseMarkdown';
 
-const allPostFiles = import.meta.glob('/src/posts/*.md', { as: 'raw' });
-
 export async function load() {
-	console.log('📝 Loading all blog post files...');
-	const postPromises = Object.entries(allPostFiles).map(async ([path, resolver]) => {
-		const raw = await resolver();
-		const slug = path.split('/').pop()?.replace('.md', '') ?? 'unknown';
+  const postFiles = import.meta.glob('../../posts/*.md', { as: 'raw' });
+  const posts = [];
 
-		const { metadata } = parseMarkdown(raw);
+  for (const [path, resolver] of Object.entries(postFiles)) {
+    const slug = path.split('/').pop().replace('.md', '');
+    const raw = await resolver();
 
-		console.log(`✅ Found post: ${slug}`, metadata);
+    const match = raw.match(/^---\n([\s\S]*?)\n---/);
+    let metadata = { title: 'Untitled', date: '', author: 'Unknown', description: '' };
 
-		return {
-			slug,
-			title: metadata.title,
-			date: metadata.date,
-			description: metadata.description,
-			author: metadata.author
-		};
-	});
+    if (match) {
+      const lines = match[1].split('\n');
+      for (const line of lines) {
+        const [key, ...rest] = line.split(':');
+        const value = rest.join(':').trim();
+        if (key && value) metadata[key.trim()] = value;
+      }
+    }
 
-	const posts = await Promise.all(postPromises);
-	console.log('✅ Final posts:', posts);
-	return { posts };
+    posts.push({ ...metadata, slug });
+  }
+
+  // Sort by date (optional)
+  posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+
+  return { posts };
 }
