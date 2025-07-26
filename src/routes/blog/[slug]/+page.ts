@@ -1,26 +1,29 @@
-import { parseMarkdown } from '$lib/utils/parseMarkdown';
-
-const allPostFiles = import.meta.glob('/src/posts/*.md', { as: 'raw' });
+import { parseMarkdown } from '$lib/parseMarkdown';
+import { error } from '@sveltejs/kit';
 
 export async function load({ params }) {
-	const slug = params.slug;
-	const matchPath = Object.keys(allPostFiles).find(path =>
-		path.includes(`${slug}.md`)
-	);
+  try {
+    const post = await import(`../../../posts/${params.slug}.md?raw`);
+    const content = parseMarkdown(post.default);
 
-	if (!matchPath) {
-		console.error(`❌ No matching post for slug: ${slug}`);
-		return { content: '', title: 'Not Found', date: '', author: '', description: '' };
-	}
+    // Extract metadata from frontmatter manually
+    const match = post.default.match(/^---\n([\s\S]*?)\n---/);
+    let metadata = { title: 'Untitled', date: '', author: 'Unknown Author' };
 
-	const raw = await allPostFiles[matchPath]();
-	const { metadata, content } = parseMarkdown(raw);
+    if (match) {
+      const lines = match[1].split('\n');
+      for (const line of lines) {
+        const [key, ...rest] = line.split(':');
+        const value = rest.join(':').trim();
+        if (key && value) metadata[key.trim()] = value;
+      }
+    }
 
-	return {
-		title: metadata.title,
-		date: metadata.date,
-		author: metadata.author,
-		description: metadata.description,
-		content
-	};
+    return {
+      content,
+      ...metadata
+    };
+  } catch (e) {
+    throw error(404, 'Post not found');
+  }
 }

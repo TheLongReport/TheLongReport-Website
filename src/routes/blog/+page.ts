@@ -1,4 +1,4 @@
-import { parseMarkdown } from '$lib/utils/parseMarkdown';
+import { parseMarkdown } from '$lib/parseMarkdown';
 
 const allPostFiles = import.meta.glob('/src/posts/*.md', { as: 'raw' });
 
