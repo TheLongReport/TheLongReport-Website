@@ -1,7 +1,13 @@
 ---
-title: "Welcome to The Long Report"
-date: "2025-07-22"
-description: "A new era of conservative journalism begins."
+export const metadata = {
+  title: "Sample Post Title",
+  date: "2025-07-24",
+  description: "This is a sample blog post.",
+  author: "Christopher Lennis Long"
+};
 ---
+Welcome to my blog post!
 
-This is the very first blog post on The Long Report. Stay tuned for truth, strategy, and hard-hitting analysis.
+## This is a subheading
+
+This is markdown content.

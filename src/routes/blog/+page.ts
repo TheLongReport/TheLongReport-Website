@@ -1,27 +1,26 @@
-import { parseMarkdown } from '$lib/utils/parseMarkdown';
-
-const allPostFiles = import.meta.glob('/src/posts/*.md', {
-	query: '?raw',
-	import: 'default'
-});
+// src/routes/blog/+page.ts
+const allPostFiles = import.meta.glob('/src/posts/*.md');
 
 export async function load() {
-	const posts = await Promise.all(
-		Object.entries(allPostFiles).map(async ([path, resolver]) => {
-			try {
-				const raw = await resolver();
-				const { title, date, description } = parseMarkdown(raw);
-				const slug = path.split('/').pop()?.replace('.md', '') ?? 'unknown';
+	console.log("📝 Loading all blog post files...");
 
-				return { slug, title, date, description };
-			} catch (err) {
-				console.error(`Error loading post ${path}:`, err);
-				return null;
-			}
-		})
-	);
+	const postPromises = Object.entries(allPostFiles).map(async ([path, resolver]) => {
+		const post = await resolver();
+		const slug = path.split('/').pop()?.replace('.md', '') ?? 'unknown';
 
-	return {
-		posts: posts.filter(Boolean)
-	};
+		console.log(`✅ Found post: ${slug}`, post.metadata);
+
+		return {
+			slug,
+			title: post.metadata?.title ?? 'Untitled',
+			date: post.metadata?.date ?? '',
+			description: post.metadata?.description ?? '',
+			author: post.metadata?.author ?? 'Unknown Author'
+		};
+	});
+
+	const posts = await Promise.all(postPromises);
+	console.log("✅ Final posts:", posts);
+
+	return { posts };
 }

@@ -1,23 +1,29 @@
-import { parseMarkdown } from '$lib/utils/parseMarkdown';
-import { error } from '@sveltejs/kit';
-
-const allPosts = import.meta.glob('/src/posts/*.md', { as: 'raw' });
+// src/routes/blog/[slug]/+page.ts
+const postFiles = import.meta.glob('/src/posts/*.md');
 
 export async function load({ params }) {
 	const slug = params.slug;
-	const match = Object.entries(allPosts).find(([path]) =>
-		path.endsWith(`/${slug}.md`)
-	);
+	const filePath = `/src/posts/${slug}.md`;
 
-	if (!match) throw error(404, 'Post not found');
+	const importPost = postFiles[filePath];
 
-	const raw = await match[1]();
-	const { title, date, author, content } = parseMarkdown(raw);
+	if (!importPost) {
+		console.error(`❌ No blog post found for slug: ${slug}`);
+		throw new Error('Post not found');
+	}
+
+	const post = await importPost();
+
+	if (!post.metadata || !post.default) {
+		console.error(`❌ Post metadata or content missing for: ${slug}`, post);
+		throw new Error('Post data malformed');
+	}
 
 	return {
-		title,
-		date,
-		author,
-		content
+		title: post.metadata.title ?? 'Untitled',
+		date: post.metadata.date ?? '',
+		description: post.metadata.description ?? '',
+		author: post.metadata.author ?? 'Unknown Author',
+		content: post.default
 	};
 }
