@@ -1,6 +1,9 @@
 import type { PageLoad } from './$types';
 import { parseMarkdownFile } from '$lib/parseMarkdown';
 
+export const prerender = true;
+
+
 export const load: PageLoad = async ({ params }) => {
   const slug = params.slug;
 

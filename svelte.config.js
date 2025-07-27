@@ -1,5 +1,12 @@
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import adapter from '@sveltejs/adapter-static';
+import fs from 'fs';
+
+// Dynamically collect all /blog/[slug] entries from static/posts folder
+const blogSlugs = fs
+  .readdirSync('./static/posts', { withFileTypes: true })
+  .filter((dirent) => dirent.isDirectory())
+  .map((dirent) => `/blog/${dirent.name}`);
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -9,12 +16,12 @@ const config = {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			fallback: 'index.html', // SPA fallback for Azure
+			fallback: 'index.html', // SPA fallback for Azure Static Web Apps
 		}),
 		prerender: {
-			crawl: true,                     // Auto-follow links and prerender those pages
-			entries: ['*'],                  // Include all static routes
-			handleHttpError: 'warn',        // Prevent build from crashing on 404s
+			crawl: true,
+			handleHttpError: 'warn',
+			entries: ['*', ...blogSlugs] // Include all static routes + dynamic blog slugs
 		}
 	}
 };
