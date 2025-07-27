@@ -22,23 +22,23 @@
 </script>
 
 <svelte:head>
-  <title>{data.ogTitle || data.title}</title>
-  <meta name="description" content={data.ogDescription || data.description} />
-  {#if data.keywords}
-    <meta name="keywords" content={data.keywords.join(', ')} />
-  {/if}
-  <!-- Open Graph -->
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content={data.ogTitle ?? data.title} />
-  <meta property="og:description" content={data.ogDescription ?? data.description} />
-  <meta property="og:image" content={data.ogImage ?? data.featuredImage} />
-  <meta property="og:url" content={`https://thelongreport.net/blog/${data.slug}`} />
+	<title>{data.ogTitle || data.title}</title>
+	<meta name="description" content={data.ogDescription || data.description} />
+	{#if data.keywords}
+	<meta name="keywords" content={data.keywords.join(', ')} />
+	{/if}
+	<!-- Open Graph -->
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content={data.ogTitle ?? data.title} />
+	<meta property="og:description" content={data.ogDescription ?? data.description} />
+	<meta property="og:image" content={`https://thelongreport.net${data.ogImage ?? data.featuredImage}`} />
+	<meta property="og:url" content={`https://thelongreport.net/blog/${data.slug}`} />
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content={data.twitterCard ?? 'summary_large_image'} />
-  <meta name="twitter:title" content={data.ogTitle ?? data.title} />
-  <meta name="twitter:description" content={data.ogDescription ?? data.description} />
-  <meta name="twitter:image" content={data.ogImage ?? data.featuredImage} />
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content={data.twitterCard ?? 'summary_large_image'} />
+	<meta name="twitter:title" content={data.ogTitle ?? data.title} />
+	<meta name="twitter:description" content={data.ogDescription ?? data.description} />
+	<meta name="twitter:image" content={`https://thelongreport.net${data.ogImage ?? data.featuredImage}`} />
 </svelte:head>
 
 <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
