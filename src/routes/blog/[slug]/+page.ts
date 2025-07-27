@@ -35,6 +35,7 @@ export const load: PageLoad = async ({ params }) => {
   const previous = allPosts[currentIndex + 1] ?? null;
 
   return {
+    slug,
     title: current.title,
     date: current.date,
     description: current.description,
