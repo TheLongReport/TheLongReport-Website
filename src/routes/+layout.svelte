@@ -8,7 +8,7 @@
   const currentPath = derived(page, ($page) => $page.url.pathname);
 </script>
 
-<header class="bg-gray-100 shadow-md sticky inset-x-0 top-[1px] z-50">
+<header class="bg-gray-100 shadow-md sticky inset-x-0 top-[0px] z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
     <a href="/" class="flex items-center">
       <img src="/images/TheLongReport_WIDE.png" alt="The Long Report" class="h-8 w-auto sm:h-10" />
