@@ -2,38 +2,43 @@
   export let data;
 </script>
 
-<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <h1 class="text-4xl font-extrabold text-center mb-12 text-gray-900 dark:text-black">
-    Latest Articles
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <h1 class="text-4xl font-extrabold text-center mb-14 text-gray-900 dark:text-black">
+    Latest Long Reports
   </h1>
 
-  <div class="flex flex-col space-y-12">
+  <div class="space-y-12">
     {#each data.posts as post}
-      <div class="border border-gray-200 rounded-xl shadow-lg overflow-hidden max-w-3xl mx-auto">
-        {#if post.featuredImage}
-          <a href={`/blog/${post.slug}`}>
+      <article class="rounded-xl overflow-hidden border border-gray-200 shadow-md hover:shadow-xl transition-shadow max-w-3xl mx-auto bg-white">
+        <a href={`/blog/${post.slug}`}>
+          {#if post.featuredImage}
             <img
               src={post.featuredImage}
               alt={`Featured image for ${post.title}`}
-              class="w-full h-60 object-cover"
+              class="w-full h-64 object-cover"
               loading="lazy"
             />
-          </a>
-        {/if}
+          {/if}
+        </a>
 
         <div class="p-6">
-          <h2 class="text-2xl font-bold mb-1 text-gray-900 dark:text-black">
-            <a href={`/blog/${post.slug}`} class="hover:underline">{post.title}</a>
+          <h2 class="text-2xl font-semibold text-gray-900 mb-2 hover:text-blue-700 transition-colors">
+            <a href={`/blog/${post.slug}`} class="hover:underline">
+              {post.title}
+            </a>
           </h2>
-          <p class="text-sm text-gray-500 mb-4">{post.date}</p>
-          <p class="text-base text-gray-700 dark:text-gray-800 mb-4">
+          <p class="text-sm text-gray-500 mb-3">{post.date}</p>
+          <p class="text-base text-gray-700 mb-4">
             {post.description}
           </p>
-          <a href={`/blog/${post.slug}`} class="text-blue-600 hover:underline font-medium">
+          <a
+            href={`/blog/${post.slug}`}
+            class="inline-block text-blue-600 font-semibold hover:underline"
+          >
             Read more →
           </a>
         </div>
-      </div>
+      </article>
     {/each}
   </div>
 </section>

@@ -5,5 +5,7 @@
 	],
 	"/blog/[slug]": [
 		"src/routes/blog/[slug]/+page.ts"
-	]
+	],
+	"/contact": [],
+	"/podcast": []
 }

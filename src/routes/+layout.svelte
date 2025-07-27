@@ -20,7 +20,9 @@
     <!-- Desktop nav -->
     <nav class="hidden sm:flex space-x-4 text-black font-medium">
       <a href="/" class="hover:text-blue-300">Home</a>
-      <a href="/blog" class="hover:text-blue-300">News</a>
+      <a href="/blog" class="hover:text-blue-300">Reports</a>
+      <a href="/podcast" class="hover:text-blue-300">Podcast</a>
+      <a href="/contact" class="hover:text-blue-300">Contact</a>
     </nav>
   </div>
 
@@ -28,7 +30,9 @@
   {#if menuOpen}
     <nav class="sm:hidden px-4 pb-4 space-y-2 text-black font-medium">
       <a href="/" class="block hover:text-blue-300">Home</a>
-      <a href="/blog" class="block hover:text-blue-300">News</a>
+      <a href="/blog" class="block hover:text-blue-300">Reports</a>
+      <a href="/podcast" class="block hover:text-blue-300">Podcast</a>
+      <a href="/contact" class="block hover:text-blue-300">Contact</a>
     </nav>
   {/if}
 </header>
