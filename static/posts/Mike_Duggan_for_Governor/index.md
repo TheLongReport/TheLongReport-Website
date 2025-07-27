@@ -4,6 +4,11 @@ date: "2025-07-24"
 description: "A calculated power grab by the consultant class and Democrat-aligned Republicans. Here's why Duggan's candidacy is a Trojan horse Michigan cannot afford."
 author: "Chris Long"
 featuredImage: "duggan.png"
+keywords: ["Mike Duggan", "Michigan politics", "RINOs", "Republican", "The Long Report"]
+ogImage: "duggan.png"
+ogTitle: "Mike Duggan's Governor Run—The Truth They Won't Tell You"
+ogDescription: "Exposing the establishment behind Mike Duggan’s campaign. You need to read this."
+twitterCard: "summary_large_image"
 ---
 
 The announcement of Detroit Mayor Mike Duggan’s rumored run for Governor of Michigan should send a chill down the spine of every voter who values real reform, accountability, and actual results over political theater. But instead of bipartisan scrutiny, what we’re seeing is a disturbing alignment: consultants, corporate special interests, union bosses, and squishy Republicans all rushing to crown Duggan as the “sensible” choice for Michigan’s future.

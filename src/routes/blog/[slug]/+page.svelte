@@ -1,16 +1,42 @@
 <script lang="ts">
+  import { afterNavigate } from '$app/navigation';
   export let data;
+
   let shareUrl = '';
   if (typeof window !== 'undefined') {
     shareUrl = window.location.href;
   }
 
-  const featuredImage = data.featuredImage ?? null;
-  const author = data.author ?? 'The Long Report';
+  let featuredImage: string | null = null;
+  let author: string = 'The Long Report';
+
+  // Reactively update on data change
+  $: featuredImage = data.featuredImage ?? null;
+  $: author = data.author ?? 'The Long Report';
+
+  // Scroll to top on navigation
+  afterNavigate(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 </script>
 
-<article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<svelte:head>
+  <title>{data.ogTitle || data.title}</title>
+  <meta name="description" content={data.ogDescription || data.description} />
+  {#if data.keywords}
+    <meta name="keywords" content={data.keywords.join(', ')} />
+  {/if}
+  <meta property="og:title" content={data.ogTitle || data.title} />
+  <meta property="og:description" content={data.ogDescription || data.description} />
+  <meta property="og:image" content={data.ogImage || data.featuredImage} />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content={data.twitterCard || 'summary'} />
+  <meta name="twitter:title" content={data.ogTitle || data.title} />
+  <meta name="twitter:description" content={data.ogDescription || data.description} />
+  <meta name="twitter:image" content={data.ogImage || data.featuredImage} />
+</svelte:head>
 
+<article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
   {#if featuredImage}
     <img
       src={featuredImage}
@@ -58,4 +84,25 @@
       <i class="fab fa-linkedin fa-xl"></i>
     </a>
   </div>
+
+	<!-- Navigation: Previous / Next -->
+	<div class="mt-20 grid grid-cols-1 sm:grid-cols-2 gap-4">
+	{#if data.previous}
+		<a href={`/blog/${data.previous.slug}`} class="block border border-gray-200 rounded-xl p-4 shadow hover:shadow-lg transition-shadow bg-white">
+		<p class="text-xs text-gray-500 mb-1">Previous Article</p>
+		<p class="text-base font-semibold text-blue-700 hover:underline">
+			← {data.previous.title}
+		</p>
+		</a>
+	{/if}
+
+	{#if data.next}
+		<a href={`/blog/${data.next.slug}`} class="block border border-gray-200 rounded-xl p-4 shadow hover:shadow-lg transition-shadow bg-white text-right">
+		<p class="text-xs text-gray-500 mb-1">Next Article</p>
+		<p class="text-base font-semibold text-blue-700 hover:underline">
+			{data.next.title} →
+		</p>
+		</a>
+	{/if}
+	</div>
 </article>

@@ -5,14 +5,21 @@ export interface PostMetadata {
   title: string;
   date: string;
   description: string;
+  author?: string;
   featuredImage?: string;
   content: string;
+  keywords?: string[];
+  ogImage?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  twitterCard?: string;
 }
 
 export function parseMarkdownFile(slug: string, raw: string): PostMetadata {
   const lines = raw.split('\n');
-  let metadata: Record<string, string> = {};
-  let contentLines: string[] = [];
+  const metadata: Record<string, string> = {};
+  const contentLines: string[] = [];
+
   let inFrontMatter = false;
   let frontMatterComplete = false;
 
@@ -21,9 +28,7 @@ export function parseMarkdownFile(slug: string, raw: string): PostMetadata {
 
     if (trimmed === '---') {
       inFrontMatter = !inFrontMatter;
-      if (!inFrontMatter) {
-        frontMatterComplete = true;
-      }
+      if (!inFrontMatter) frontMatterComplete = true;
       continue;
     }
 
@@ -35,7 +40,7 @@ export function parseMarkdownFile(slug: string, raw: string): PostMetadata {
           (value.startsWith('"') && value.endsWith('"')) ||
           (value.startsWith("'") && value.endsWith("'"))
         ) {
-          value = value.slice(1, -1); // remove surrounding quotes
+          value = value.slice(1, -1);
         }
         metadata[key.trim()] = value;
       }
@@ -46,10 +51,16 @@ export function parseMarkdownFile(slug: string, raw: string): PostMetadata {
 
   return {
     slug,
-    title: metadata.title || slug,
-    date: metadata.date || '',
-    description: metadata.description || '',
-    featuredImage: metadata.featuredImage ? `/posts/${slug}/${metadata.featuredImage}` : '',
-    content: marked.parse(contentLines.join('\n'))
+    title: metadata.title ?? '',
+    date: metadata.date ?? '',
+    description: metadata.description ?? '',
+    author: metadata.author ?? 'The Long Report',
+    featuredImage: metadata.featuredImage ? `/posts/${slug}/${metadata.featuredImage}` : undefined,
+    content: marked.parse(contentLines.join('\n')),
+    keywords: metadata.keywords?.split(',').map((k) => k.trim()) ?? [],
+    ogImage: metadata.ogImage ? `/posts/${slug}/${metadata.ogImage}` : undefined,
+    ogTitle: metadata.ogTitle ?? metadata.title,
+    ogDescription: metadata.ogDescription ?? metadata.description,
+    twitterCard: metadata.twitterCard ?? 'summary_large_image'
   };
 }

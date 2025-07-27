@@ -1,6 +1,11 @@
 <script lang="ts">
   import '../app.css';
+  import { page } from '$app/stores';
+  import { derived } from 'svelte/store';
+
   let menuOpen = false;
+
+  const currentPath = derived(page, ($page) => $page.url.pathname);
 </script>
 
 <header class="bg-gray-100 shadow-md sticky inset-x-0 top-[1px] z-50">
@@ -19,20 +24,20 @@
 
     <!-- Desktop nav -->
     <nav class="hidden sm:flex space-x-4 text-black font-medium">
-      <a href="/" class="hover:text-blue-300">Home</a>
-      <a href="/blog" class="hover:text-blue-300">Reports</a>
-      <a href="/podcast" class="hover:text-blue-300">Podcast</a>
-      <a href="/contact" class="hover:text-blue-300">Contact</a>
+      <a href="/" class="{ $currentPath === '/' ? 'text-red-600' : 'hover:text-blue-300' }">Home</a>
+      <a href="/blog" class="{ $currentPath.startsWith('/blog') ? 'text-red-600' : 'hover:text-blue-300' }">Reports</a>
+      <a href="/podcast" class="{ $currentPath === '/podcast' ? 'text-red-600' : 'hover:text-blue-300' }">Podcast</a>
+      <a href="/contact" class="{ $currentPath === '/contact' ? 'text-red-600' : 'hover:text-blue-300' }">Contact</a>
     </nav>
   </div>
 
   <!-- Mobile nav -->
   {#if menuOpen}
     <nav class="sm:hidden px-4 pb-4 space-y-2 text-black font-medium">
-      <a href="/" class="block hover:text-blue-300">Home</a>
-      <a href="/blog" class="block hover:text-blue-300">Reports</a>
-      <a href="/podcast" class="block hover:text-blue-300">Podcast</a>
-      <a href="/contact" class="block hover:text-blue-300">Contact</a>
+      <a href="/" class="{ $currentPath === '/' ? 'text-red-600' : 'hover:text-blue-300' } block">Home</a>
+      <a href="/blog" class="{ $currentPath.startsWith('/blog') ? 'text-red-600' : 'hover:text-blue-300' } block">Reports</a>
+      <a href="/podcast" class="{ $currentPath === '/podcast' ? 'text-red-600' : 'hover:text-blue-300' } block">Podcast</a>
+      <a href="/contact" class="{ $currentPath === '/contact' ? 'text-red-600' : 'hover:text-blue-300' } block">Contact</a>
     </nav>
   {/if}
 </header>

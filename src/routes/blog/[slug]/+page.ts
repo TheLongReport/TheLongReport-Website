@@ -4,23 +4,46 @@ import { parseMarkdownFile } from '$lib/parseMarkdown';
 export const load: PageLoad = async ({ params }) => {
   const slug = params.slug;
 
-  const files = import.meta.glob('/static/posts/**/index.md', { as: 'raw', eager: true });
-  const matched = Object.entries(files).find(([path]) => path.includes(`/${slug}/index.md`));
+  const files = import.meta.glob('/static/posts/**/index.md', {
+    query: '?raw',
+    import: 'default',
+    eager: true
+  });
 
-  if (!matched) {
+  const allPosts = Object.entries(files)
+    .map(([path, raw]) => {
+      const slugMatch = path.match(/\/static\/posts\/(.*?)\/index\.md$/);
+      if (!slugMatch) return null;
+
+      const postSlug = slugMatch[1];
+      const parsed = parseMarkdownFile(postSlug, raw as string);
+      return { ...parsed, slug: postSlug };
+    })
+    .filter(Boolean)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const currentIndex = allPosts.findIndex((p) => p.slug === slug);
+  if (currentIndex === -1) {
     throw new Error(`Post not found for slug: ${slug}`);
   }
 
-  const [, raw] = matched;
-  const post = parseMarkdownFile(slug, raw as string);
+  const current = allPosts[currentIndex];
+  const next = allPosts[currentIndex - 1] ?? null;
+  const previous = allPosts[currentIndex + 1] ?? null;
 
-  // ✅ Destructure and return directly for your Svelte file
   return {
-    title: post.title,
-    date: post.date,
-    description: post.description,
-    content: post.content,
-    author: post.author,
-    featuredImage: post.featuredImage
+    title: current.title,
+    date: current.date,
+    description: current.description,
+    content: current.content,
+    author: current.author,
+    featuredImage: current.featuredImage,
+    keywords: current.keywords,
+    ogImage: current.ogImage,
+    ogTitle: current.ogTitle,
+    ogDescription: current.ogDescription,
+    twitterCard: current.twitterCard,
+    next: next ? { slug: next.slug, title: next.title } : null,
+    previous: previous ? { slug: previous.slug, title: previous.title } : null
   };
 };
