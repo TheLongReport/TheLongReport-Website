@@ -5,6 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
+		"generate-sitemap": "node scripts/generate-sitemap.js",
 		"build": "vite build && cp staticwebapp.config.json build/",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",

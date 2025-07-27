@@ -1,0 +1,15 @@
+# robots.txt for https://thelongreport.net
+
+User-agent: *
+Disallow: /_app/
+Disallow: /build/
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /drafts/
+Disallow: /private/
+
+# Allow all public-facing content
+Allow: /
+
+# Sitemaps
+Sitemap: https://thelongreport.net/sitemap.xml
