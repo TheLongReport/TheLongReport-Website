@@ -1,30 +1,16 @@
-import { parseMarkdown } from '$lib/parseMarkdown';
+import type { PageLoad } from './$types';
+import { parseMarkdownFile } from '$lib/parseMarkdown';
 
-export async function load() {
-  const postFiles = import.meta.glob('../../posts/*.md', { as: 'raw' });
-  const posts = [];
+export const load: PageLoad = async () => {
+  const postFiles = import.meta.glob('/static/posts/**/index.md', { as: 'raw', eager: true });
 
-  for (const [path, resolver] of Object.entries(postFiles)) {
-    const slug = path.split('/').pop().replace('.md', '');
-    const raw = await resolver();
+  const posts = Object.entries(postFiles).map(([path, raw]) => {
+    const slug = path.split('/').slice(-2)[0]; // Gets the folder name as slug
+    return parseMarkdownFile(slug, raw as string);
+  });
 
-    const match = raw.match(/^---\n([\s\S]*?)\n---/);
-    let metadata = { title: 'Untitled', date: '', author: 'Unknown', description: '' };
-
-    if (match) {
-      const lines = match[1].split('\n');
-      for (const line of lines) {
-        const [key, ...rest] = line.split(':');
-        const value = rest.join(':').trim();
-        if (key && value) metadata[key.trim()] = value;
-      }
-    }
-
-    posts.push({ ...metadata, slug });
-  }
-
-  // Sort by date (optional)
-  posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+  // Optional: sort by date descending
+  posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return { posts };
-}
+};

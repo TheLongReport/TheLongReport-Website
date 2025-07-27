@@ -2,6 +2,8 @@
 title: "Mike Duggan for Governor? Absolutely Not."
 date: "2025-07-24"
 description: "A calculated power grab by the consultant class and Democrat-aligned Republicans. Here's why Duggan's candidacy is a Trojan horse Michigan cannot afford."
+author: "Chris Long"
+featuredImage: "duggan.png"
 ---
 
 The announcement of Detroit Mayor Mike Duggan’s rumored run for Governor of Michigan should send a chill down the spine of every voter who values real reform, accountability, and actual results over political theater. But instead of bipartisan scrutiny, what we’re seeing is a disturbing alignment: consultants, corporate special interests, union bosses, and squishy Republicans all rushing to crown Duggan as the “sensible” choice for Michigan’s future.

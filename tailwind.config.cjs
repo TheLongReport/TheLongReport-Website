@@ -1,5 +1,6 @@
 const forms = require('@tailwindcss/forms');
 const typography = require('@tailwindcss/typography');
+const lineClamp = require('@tailwindcss/line-clamp');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -7,23 +8,21 @@ module.exports = {
   theme: {
     extend: {
       typography: {
-          DEFAULT: {
-            css: {
-              p: {
-                textAlign: 'justify'
-              },
-              li: {
-                textAlign: 'justify'
-              }
+        DEFAULT: {
+          css: {
+            p: {
+              textAlign: 'justify'
             },
-          },
-        },
-      },
-    },
+            li: {
+              textAlign: 'justify'
+            }
+          }
+        }
+      }
+    }
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+  plugins: [forms, typography, lineClamp],
   corePlugins: {
-    // Make sure this is enabled (default: true)
     fontSmoothing: true,
   },
 };
